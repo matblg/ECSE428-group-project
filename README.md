@@ -1,4 +1,4 @@
-# <appname>
+# \<appname>
 
 ## Overview
 A social reading and book-tracking web application. 
