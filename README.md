@@ -12,13 +12,13 @@ A social reading and book-tracking web application.
 - Personalized and community-driven recommendations
 
 ## Technical Details
-- Backend: Java SpringBoot
+- Backend: Java + Spring Boot
 - DB: MongoDB
 - Frontend: React 
 
 ## Team Members
 - Mathis Belanger – matblg 
-- David Wang – <github id>  
+- David Wang – dyune  
 - Alexander Kudinov – <github id>  
 - Najib Najib – <github id>  
 - Mahan Maalekian – <github id>  
