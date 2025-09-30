@@ -12,7 +12,6 @@ A social reading and book-tracking web application.
 - Personalized and community-driven recommendations
 
 ## Technical Details
-- Platform: Web application
 - Backend: Java SpringBoot
 - DB: MongoDB
 - Frontend: React 
