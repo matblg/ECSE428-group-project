@@ -1,7 +1,7 @@
 Feature: Search catalogue of books
 
   As a user of this application,
-  I want to search up books by criteria such as title, author and genre
+  I want to search books by criteria such as title, author and genre
   so that I can view this application's catalogue of books.
 
   Background:
