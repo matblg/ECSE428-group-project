@@ -1,4 +1,4 @@
-Feature: Title of the feature
+Feature: Search catalogue of books
 
   As a user of this application,
   I want to search up books by criteria such as title, author and genre
@@ -10,7 +10,7 @@ Feature: Title of the feature
       | "Moby Dick"                                 | "Joe Mama"             | "Fiction"
       | "How 2 Get In FAANG"                        | "Jeffrey Bezos"        | "Fantasy"
       | "The Hunger Games"                          | "Jeffrey Bezos"        | "Fiction"
-      | "The Great Gatsby's Guide to Crypto"        | "F. Scott Fitzhodler"  | "Fiction"
+      | "The Great Gatsby's Guide to Crypto"        | "F. Scott Fitzholder"  | "Fiction"
       | "Frankenstein's Monster's Skincare Guide"   | "Joe Mama"             | "Self-help"
       | "Lord of the Flies: A Team-Building Manual" | "William Golding, MBA" | "Self-help"
 
