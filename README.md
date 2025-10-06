@@ -20,7 +20,7 @@ A social reading and book-tracking web application.
 - Mathis Belanger – matblg 
 - David Wang – dyune  
 - Alexander Kudinov – <github id>  
-- Najib Najib – <github id>  
+- Najib Najib – najibna
 - Mahan Maalekian – <github id>  
 - Marianne Romero – MarianneRomero  
 - Reina El-Hoz – <github id>  
