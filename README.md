@@ -23,7 +23,7 @@ A social reading and book-tracking web application.
 - Najib Najib – najibna
 - Mahan Maalekian – <github id>  
 - Marianne Romero – MarianneRomero  
-- Reina El-Hoz – <github id>  
+- Reina El-Hoz – ReinaEl-Hoz
 - Jason Rustom – <github id>  
 - Paul Scheuermann – <github id>  
 - James Helou – <github id>  
