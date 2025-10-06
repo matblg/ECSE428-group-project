@@ -22,7 +22,7 @@ A social reading and book-tracking web application.
 - Alexander Kudinov – <github id>  
 - Najib Najib – <github id>  
 - Mahan Maalekian – <github id>  
-- Marianne Romero – <github id>  
+- Marianne Romero – MarianneRomero  
 - Reina El-Hoz – <github id>  
 - Jason Rustom – <github id>  
 - Paul Scheuermann – <github id>  
