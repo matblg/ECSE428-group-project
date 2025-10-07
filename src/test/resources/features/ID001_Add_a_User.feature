@@ -1,57 +1,55 @@
 Feature: Add New User
+As a new user
+I would like to become a user of the Letterbook System
+So that I track my reading habits
 
-As a new user who want to track the books I have already
-read I want to create a person account that is protected so only I can access it
+  Scenario: Create an account (Normal Flow)
+    Given a new user is on the registration page
+    When the user enters the email address "reader@example.de"
+    And the user enters the password "pass1234"
+    And the user submits the registration form
+    Then a new account is created with a unique user id and the email address "reader@example.de"
+    And a confirmation mail is sent to the user
+    And the user is logged in
 
-# Normal flow
+  Scenario Outline: Required information is missing (Error flow)
+    Given a new user is on the registration page
+    When the user enters an email <email>
+    And the user enters a password <password>
+    And the user submits the registration form
+    Then the system should display an error message <error_message>
 
-Scenario: A new user successfully creates an account (Normal Flow)
-  Given a new user is on the registration page
-  When the user enters the email address "reader@example.de"
-  And the user enters the password "pass1234"
-  And the user submits the registration form
-  Then a new account is created with a unique user id
-  And a confirmation mail is sent to the user
-  And the user is redirected to his profile page
+    Examples:
+      | email        | password | error_message               |
+      |              | pass1234 | "Email address is required" |
+      | reader@x.com |          | "Password is required       |
 
-# Error flows
-Scenario Outline: Mission mandatory field
-  Given a new user is on the registration page
-  When the user enters an email <email>
-  And the user enters a password <password>
-  And the user submits the registration form
-  Then the system should display an error message <error_message>
-  Examples:
-    | email | password | error_message |
-    |       | pass1234  | "Email address is required" |
-    | reader@x.com |   | "Password is required       |
+  Scenario: An invalid email format is entered (Error flow)
+    Given the following user accounts exist in the system:
+      | Email               |
+      | "reader@example.de" |
+    And the user is on the registration page
+    When the user enters the email address <Email>
+    And the user enters the password "pass1234"
+    And the user submits the registration form
+    Then message <Message> is issued
 
-Scenario: Invalid email format
-Given the email "reader@example.de" is already linked to another account and the user goes onto the registration page
-When the user enters the email address "reader@example.de"
-And the user enters the password "pass1234"
-And the user submits the registration form
-Then the system should display "Email already registered
+    Examples:
+      | Email               | Password   | Message                                       |
+      | "reader@example.de" | "pass1234" | "Email is already associated with an account" |
+      | "example.de"        | "pass1234" | "Invalid email format"                        |
 
-Scenario: Invalid email format
-Given A new user is on the registration page
-When the user enters the email address "example.de"
-And the user enters the password "pass1234"
-And the user submits the registration form
-Then the system should display "Invalid email format"
+  Scenario: An invalid password is entered (Error flow)
+    Given a new user is on the registration page
+    When the user enters the email address "reader@example.de"
+    And the user enters the password <Password>
+    And the user submits the registration form
+    Then message <Message> is issued
 
-Scenario: Password too short
-Given a new user is on the registration page
-When the user enters the email address "reader@example.de
-And the user enters the password "pass123"
-And the user submits the registration form
-Then the system should display "Password must be at least 8 character long"
-
-Scenario: Server or network failure
-Given A new user is on the registration page
-And the user enters the email address "example.de"
-And the user enters the password "pass1234"
-And the user submits the registration form
-When the servers are temporarily unavailable
-Then the system should display "Unable to create account. Please try again later"
-
+    Examples:
+      | Password    | Message                                      |
+      | passwor     | Password must contain at least 8 charcaters  |
+      | password    | Password must contain an uppercase character |
+      | PASSWORD    | Password must contain a lowercase character  |
+      | Password    | Password must contain a number               |
+      | password123 | Password must contain a special character    |
