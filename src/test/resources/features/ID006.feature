@@ -1,7 +1,7 @@
 Feature: View Profile (Reading History & Collections)
   As a User
   I would like to view my profile information related to reading history and book collections
-  So that I can track books I started/completed and browse my saved-to-read lists by genre
+  So that I can track books I started/completed and browse my Reading lists by genre
 
   Background: Users exist and books are resolved from an external API
     Given the following users exist in the System:
@@ -9,18 +9,10 @@ Feature: View Profile (Reading History & Collections)
       | user     | user@gmail.com  | I love reading!   | Password123! |
       | other    | other@gmail.com | Reading unites us | Password456! |
     And the application is connected to the Books API
-    And the Books API can resolve the following titles to metadata:
-      | Title                          | Author        | Genre       |
-      | The Wandering Isles            | C. Farrow     | Fantasy     |
-      | Algorithms Unlocked            | T. Cormen     | Non-Fiction |
-      | The Iron Empire                | J. Mandell    | Sci-Fi      |
-      | River of Stars                 | K. Ishida     | Historical  |
-      | Practical Domain-Driven Design | E. Evansworth | Non-Fiction |
-      | Sand & Smoke                   | A. Rahim      | Fantasy     |
     And the User with username "user" is logged into the Letterbook System
 
   Scenario: View profile shows Reading History and Collections (Normal Flow)
-    Given the following reading history exists for "user" with the most recent activity first:
+    Given the following reading history exists for "user":
       | Title               | Status    |
       | The Iron Empire     | STARTED   |
       | The Wandering Isles | STARTED   |
