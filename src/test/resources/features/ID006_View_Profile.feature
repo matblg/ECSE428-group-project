@@ -53,7 +53,7 @@ Feature: View Profile (Reading History & Collections)
   Scenario: Reading History shows empty state when user has no history (Alternative flow)
     Given the user has no entries in Reading History
     When the user opens their Profile page
-    Then the section "Reading History" shows the message "You haven’t started any books yet"
+    Then the section "Reading History" shows the message "You haven't started any books yet"
 
   Scenario: Collections show empty state when user has no saved books (Alternative flow)
     Given the user has no Collections
@@ -61,7 +61,6 @@ Feature: View Profile (Reading History & Collections)
     Then the section "Collections" shows the message "No saved books yet"
    
   Scenario: Prevent non-owners from viewing Reading History and Collections (Security Check)
-    Given the user is logged into the account with email "other@gmail.com"
-    And "user" has Reading History and Collections data
-    When "other" attempts to access the profile of "user"
+    Given the account "other" has Reading History and Collections data
+    When user attempts to access the profile of "other"
     Then the sections "Reading History" and "Collections" are not visible
