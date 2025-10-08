@@ -22,9 +22,9 @@ So that I track my reading habits
     Examples:
       | email        | password | error_message               |
       |              | pass1234 | "Email address is required" |
-      | reader@x.com |          | "Password is required       |
+      | reader@x.com |          | "Password is required"      |
 
-  Scenario: An invalid email format is entered (Error flow)
+  Scenario Outline: An invalid email format is entered (Error flow)
     Given the following user accounts exist in the system:
       | Email               |
       | "reader@example.de" |
@@ -39,7 +39,7 @@ So that I track my reading habits
       | "reader@example.de" | "pass1234" | "Email is already associated with an account" |
       | "example.de"        | "pass1234" | "Invalid email format"                        |
 
-  Scenario: An invalid password is entered (Error flow)
+  Scenario Outline: An invalid password is entered (Error flow)
     Given a new user is on the registration page
     When the user enters the email address "reader@example.de"
     And the user enters the password <Password>
