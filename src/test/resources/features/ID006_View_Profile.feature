@@ -36,7 +36,7 @@ Feature: View Profile (Reading History & Collections)
       | To Read        | Practical Domain-Driven Design |
       | Autumn List    | River of Stars                 |
 
-  Scenario Outline: Filter Reading History by status
+  Scenario Outline: Filter Reading History by status (Normal Flow)
     Given the following reading history exists for "user":
       | Title               | Status    |
       | The Wandering Isles | STARTED   |

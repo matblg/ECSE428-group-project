@@ -25,7 +25,7 @@ So that I track my reading habits
     Examples:
       | email        | password | error_message               |
       |              | pass1234 | "Email address is required" |
-      | reader@x.com |          | "Password is required       |
+      | reader@x.com |          | "Password is required"      |
 
   Scenario Outline: An invalid email format is entered (Error flow)
     Given the following user accounts exist in the system:
