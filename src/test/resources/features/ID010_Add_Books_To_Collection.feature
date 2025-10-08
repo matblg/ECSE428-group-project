@@ -1,6 +1,6 @@
 Feature: Add Book to Collection
-  As a user viewing a book
-  I would like to add a book to my collection by searching for it
+  As a user
+  I would like to add a book to my collection
   so that I can quickly save it for future reference
 
   Background:
