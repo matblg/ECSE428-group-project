@@ -3,8 +3,8 @@ Feature: Add Book to Collection
   I would like to add a book to my collection by searching for it
   So that I can track and organize books I own or want to read
 
-Background:
-  Given the following users exist in the System:
+  Background:
+    Given the following users exist in the System:
       | Email          | Password     |
       | user@gmail.com | Password123! |
     And the collection "My Books" exists for the account associated with email "user@gmail.com"

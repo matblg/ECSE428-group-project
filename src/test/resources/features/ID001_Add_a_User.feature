@@ -3,7 +3,6 @@ Feature: Add New User
   I want to create a user account
   So that I can start using the application and manage my own content
 
-
   Background:
     Given the user is not logged into the application
 
