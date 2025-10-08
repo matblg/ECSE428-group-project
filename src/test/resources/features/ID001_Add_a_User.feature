@@ -1,7 +1,8 @@
 Feature: Add New User
-As a new user
-I would like to become a user of the Letterbook System
-So that I track my reading habits
+  As a new user
+  I want to create a user account
+  So that I can start using the application and manage my own content
+
 
   Background:
     Given the user is not logged into the application

@@ -1,7 +1,7 @@
-Feature:
-As a user
-I would like to log into my account
-So that I can access the Letterbook application
+Feature: Login User
+  As a user,
+  I want to log into my account
+  So that I can securely access my personal Letterbook features and data
 
   Background:
     Given the following users exist in the System:

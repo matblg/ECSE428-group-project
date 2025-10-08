@@ -1,5 +1,5 @@
 Feature: Manage Profile
-  As a User
+  As a user
   I would like to edit my profile information (username, email, bio, password)
   So that my profile gets updated with the new information
 

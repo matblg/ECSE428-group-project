@@ -1,7 +1,7 @@
 Feature: Search catalogue of books
-  As a user of Letterbooked,
-  I want to search books by criteria such as title, author and genre
-  so that I can view this application's catalogue of books.
+  As a user
+  I would like to search for books by criteria such as title, author and genre
+  So that I can find and view books from the application's catalogue
 
   Background:
     Given the application is connected to the Google Books API
