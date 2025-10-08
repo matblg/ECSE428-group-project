@@ -1,7 +1,7 @@
 Feature: View Profile (Reading History & Collections)
   As a user
-  I would like to view my profile information related to reading history and book collections
-  So that I can track books I started/completed and browse my reading collections
+  I would like to view my profile dashboard 
+  So that I can track my reading activity and browse my collections
 
   Background: users exist and books are resolved from an external API
     Given the following users exist in the System:

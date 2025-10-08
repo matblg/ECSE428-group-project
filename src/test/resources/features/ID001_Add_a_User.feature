@@ -1,7 +1,7 @@
 Feature: Add New User
   As a new user
-  I want to create a user account
-  So that I can start using the application and manage my own content
+  I want to set up my account
+  So that I can begin interacting with the core features of the application. 
 
   Background:
     Given the user is not logged into the application

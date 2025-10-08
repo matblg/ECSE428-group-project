@@ -1,7 +1,7 @@
 Feature: Add Book to Collection
-  As a user
+  As a user viewing a book
   I would like to add a book to my collection by searching for it
-  So that I can track and organize books I own or want to read
+  so that I can quickly save it for future reference
 
   Background:
     Given the following users exist in the System:
