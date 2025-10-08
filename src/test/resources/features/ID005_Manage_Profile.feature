@@ -2,15 +2,16 @@ Feature: Manage Profile
   As a User
   I would like to edit my profile information (username, email, bio, password)
   So that my profile gets updated with the new information
-
-  Scenario Outline: Manage Profile (Normal Flow)
-    Given the following users exist in the System:
+  
+  Background:
+    Given the User is logged into the application
+    And the following users exist in the application:
       | Username | Email          | Bio                   | Password     |
       | user     | user@gmail.com | I love fantasy novels | Password123! |
-    And the User with username "user" is logged into the Letterbook System
+
+  Scenario Outline: Manage Profile (Normal Flow)
     When requesting the modification of field <Field> to value <UpdatedValue>
     Then the field now has value <UpdatedValue>
-
     Examples:
       | Field    | UpdatedValue             |
       | username | user1                    |
@@ -18,15 +19,10 @@ Feature: Manage Profile
       | bio      | I love historical novels |
       | password | Password321#             |
 
-  Scenario Outline: Give misformatted input to a field (Error flow)
-    Given the User is logged into the Letterbook System
-    And the following users exist in the System:
-      | Username | Email          | Bio                   | Password     |
-      | user     | user@gmail.com | I love fantasy novels | Password123! |
+  Scenario Outline: Give misformatted input to a field (Error Flow)
     When requesting the modification of field <Field> to value <InvalidInput>
     Then message <Message> is issued
     And field <Field> has value <OriginalValue>
-
     Examples:
       | Field    | OriginalValue  | InvalidInput  | Message                                      |
       | username | user           | some username | Username cannot contain a whitespace         |
@@ -39,17 +35,14 @@ Feature: Manage Profile
       | password | Password123!   | Password      | Password must contain a number               |
       | password | Password123!   | password123   | Password must contain a special character    |
 
-  Scenario Outline: Give invalid input to a field (Error flow)
-    Given the User is logged into the Letterbook System
-    And the following users exist in the System:
+  Scenario Outline: Give invalid input to a field (Error Flow)
+    Given the following users exist in the application:
       | Username | Email           | Bio                   | Password     |
-      | user     | user@gmail.com  | I love fantasy novels | Password123! |
       | user1    | user1@gmail.com | Bio for user1         | Password456! |
       | user2    | user2@gmail.com | Bio for user1         | Password456! |
     When requesting the modification of field <Field> to value <InvalidInput>
     Then message <Message> is issued
     And field <Field> has value <OriginalValue>
-
     Examples:
       | Field    | OriginalValue  | InvalidInput    | Message                                   |
       | username | user           | user1           | Username "user1" is already taken         |
