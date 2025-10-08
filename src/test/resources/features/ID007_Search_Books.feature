@@ -7,7 +7,7 @@ Feature: Search catalogue of books
     Given the application is connected to the Google Books API
 
   Scenario Outline: Successfully search for an existing book (Normal Flow)
-    When the user searches for a book with criteria: "<title>", "<author>", "<genre>"
+    When the user searches for a book with criteria: <title>, <author>, <genre>
     Then the user should see a list of books matching the search criteria
 
     Examples:
@@ -18,11 +18,15 @@ Feature: Search catalogue of books
       | "Moby-Dick"        | "Herman Melville" | "Fiction"   |
 
   Scenario Outline: Unsuccessfully search for a book that doesn't exist in the Google Books catalogue (Error Flow)
-    When the user searches for a book with criteria: "<title>", "<author>", "<genre>"
-    Then the user should see a "No books found" message
+    When the user searches for a book with criteria: <title>, <author>, <genre>
+    Then message "No books found" is issued
 
     Examples:
       | title                 | author              | genre     |
       | "A Non-Existent Book" |                     |           |
       |                       | "An Unknown Author" |           |
       |                       |                     | "Mystery" |
+
+  Scenario: Search for a book without inputing a search criterion (Error Flow)
+    When the user searches for a book with no criterion
+    Then message "Please input a search criterion" is issued
