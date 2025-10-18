@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.5'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'jacoco'
+}
+ 
+group = 'ca.mcgill.ecse428'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.cucumber:cucumber-java:7.18.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.18.0'
+    testImplementation 'io.cucumber:cucumber-spring:7.18.0'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+	testLogging {
+		exceptionFormat = 'full'
+		events "passed", "skipped", "failed"
+	}
+
+	finalizedBy jacocoTestReport
+
+}
+tasks.named('jacocoTestReport') {
+    dependsOn test
+}
