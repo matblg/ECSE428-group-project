@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
-
+# Random mumbo-jumbo and editor configurations
+.idea
+.vscode
+./**/*.iml
 # Log file
 *.log
 
