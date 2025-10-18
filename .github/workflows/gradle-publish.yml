@@ -17,6 +17,9 @@ jobs:
     - name: Move into project dir
       run:
         cd backend
+        ls 
+        tree .
+        pwd
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
