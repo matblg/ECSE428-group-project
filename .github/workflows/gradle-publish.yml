@@ -14,10 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      with:
-        path: ~/backend
-    - run:
-        tree .
+    - name: Move into project dir
+      run:
+        cd backend
     - name: Set up JDK 21
       uses: actions/setup-java@v4
       with:
