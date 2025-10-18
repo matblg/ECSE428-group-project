@@ -1,4 +1,4 @@
-# \<appname>
+# LetterBook
 
 ## Overview
 A social reading and book-tracking web application. 
