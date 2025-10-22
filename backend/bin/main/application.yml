@@ -2,3 +2,16 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/letterbook
+
+google:
+  books:
+    api:
+      key: ${GBOOKS_KEY}
+
+# Optional but helpful
+server:
+  port: 8080
+
+logging:
+  level:
+    ca.mcgill.ecse428.letterbook: DEBUG
