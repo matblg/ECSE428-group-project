@@ -1,7 +1,4 @@
 spring:
-  jpa:
-    hibernate:
-      ddl-auto: create-drop  # or 'update'
   data:
     mongodb:
       uri: mongodb://localhost:27017/letterbook
