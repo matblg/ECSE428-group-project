@@ -1,4 +1,4 @@
-package ca.mcgill.ecse428.letterbook;
+package ca.mcgill.ecse428.profile;
 
 public class StepDefinitionsProfile {
     

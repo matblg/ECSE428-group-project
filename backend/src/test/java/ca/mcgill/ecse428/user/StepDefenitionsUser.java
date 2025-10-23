@@ -1,4 +1,4 @@
-package ca.mcgill.ecse428.letterbook;
+package ca.mcgill.ecse428.user;
 
 public class StepDefenitionsUser {
     

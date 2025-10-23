@@ -1,11 +1,24 @@
 package ca.mcgill.ecse428.letterbook.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Getter
+@Setter
+@Document(collection = "user")
 public class User {
+
+    @Id
     private String username;
+
     private String email;
+
     private String password;
+
     private String bio;
-    
+
     public String getUsername() {
         return username;
     }
