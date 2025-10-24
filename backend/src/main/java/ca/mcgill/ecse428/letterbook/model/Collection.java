@@ -22,6 +22,8 @@ public class Collection {
 
     private String name;
 
+    private String description;
+
     private List<String> booksISBNs;
 
     // MAP TO User

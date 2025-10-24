@@ -1,6 +1,7 @@
 package ca.mcgill.ecse428.letterbook.service;
 
 import ca.mcgill.ecse428.letterbook.exception.BadRequestException;
+import ca.mcgill.ecse428.letterbook.exception.NotFoundException;
 import ca.mcgill.ecse428.letterbook.model.Collection;
 import ca.mcgill.ecse428.letterbook.repository.CollectionsRepository;
 import ca.mcgill.ecse428.letterbook.repository.UserRepository;
@@ -39,6 +40,35 @@ public class CollectionMgmtService {
 
         colRepo.save(collection);
 
+        return collection.getId().toString();
+    }
+
+    public Collection getCollectionById(UUID id) throws NotFoundException {
+        return colRepo.findById(id).orElseThrow(() -> new NotFoundException("Collection not found: " + id));
+    }
+
+    @Transactional
+    public String addBookToCollection(UUID collectionId, String isbn) throws BadRequestException {
+        Collection collection = colRepo.findById(collectionId).orElseThrow(
+                () -> new BadRequestException("Collection not found: " + collectionId)
+        );
+        if (collection.getBooksISBNs().contains(isbn)) {
+            throw new BadRequestException("Book with ISBN " + isbn + " already exists in collection " + collectionId);
+        }
+        collection.getBooksISBNs().add(isbn);
+        colRepo.save(collection);
+        return collection.getId().toString();
+    }
+
+    @Transactional
+    public String removeBookFromCollection(UUID collectionId, String isbn) throws BadRequestException {
+        Collection collection = colRepo.findById(collectionId).orElseThrow(
+                () -> new BadRequestException("Collection not found: " + collectionId)
+        );
+        if (!collection.getBooksISBNs().contains(isbn)) {
+            throw new BadRequestException("Book with ISBN " + isbn + " does not exist in collection " + collectionId);
+        }
+        collection.getBooksISBNs().remove(isbn);
         return collection.getId().toString();
     }
 

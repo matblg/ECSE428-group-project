@@ -4,9 +4,7 @@ import ca.mcgill.ecse428.letterbook.model.Collection;
 import ca.mcgill.ecse428.letterbook.service.CollectionMgmtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -30,6 +28,18 @@ public class CollectionMgmtController {
     @GetMapping("collections/")
     private ResponseEntity<List<Collection>> getCollectionsForUser(UUID ownerId) {
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping
+    private ResponseEntity<String> addBookToCollection(UUID collectionId, String isbn) {
+        String result = colMgmtService.addBookToCollection(collectionId, isbn);
+        return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping
+    private ResponseEntity<String> removeBookFromCollection(UUID collectionId, String isbn) {
+        String result = colMgmtService.removeBookFromCollection(collectionId, isbn);
+        return ResponseEntity.ok(result);
     }
 
 }
