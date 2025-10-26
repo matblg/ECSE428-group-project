@@ -39,15 +39,11 @@ public class UserService {
         }
         
         if (userRepository.findByEmail(cleanEmail).isPresent()) {
-            throw new IllegalArgumentException("Email already exists");
+            throw new IllegalArgumentException("Email is already associated with an account");
         }
 
         // create new user
-        User user = new User();
-        user.setUsername(cleanUsername);
-        user.setEmail(cleanEmail);
-        user.setPassword(passwordEncoder.encode(cleanPassword)); // hash the pass
-        user.setBio(bio);
+        User user = new User(cleanUsername, cleanEmail, cleanPassword, bio);
     
         userRepository.save(user);
     }
@@ -141,23 +137,35 @@ public class UserService {
         String cleanEmail = StringUtils.trimToNull(email);
         String cleanPassword = StringUtils.trimToNull(password);
         if (cleanEmail == null) {
-            throw new IllegalArgumentException("Email address cannot be empty");
+            throw new IllegalArgumentException("Email address is required");
         }
         if (cleanPassword == null) {
-            throw new IllegalArgumentException("Password cannot be empty");
+            throw new IllegalArgumentException("Password is required");
         }
+        validatePassword(cleanPassword);
         // pattern from:
         // https://www.geeksforgeeks.org/check-email-address-valid-not-java/
         String pattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern p = Pattern.compile(pattern);
         if (!p.matcher(cleanEmail).matches()) {
-            throw new IllegalArgumentException("Invalid email pattern");
+            throw new IllegalArgumentException("Invalid email format");
         }
         return new String[]{cleanEmail, cleanPassword};
     }
 
-
-    
+    private void validatePassword(String password) {
+        if (password.length() < 8) {
+            throw new IllegalArgumentException("Password must contain at least 8 characters");
+        } else if (password.toLowerCase().equals(password)) {
+            throw new IllegalArgumentException("Password must contain an uppercase character");
+        } else if (password.toUpperCase().equals(password)) {
+            throw new IllegalArgumentException("Password must contain a lowercase character");
+        } else if (!password.matches(".*\\d.*")) {
+            throw new IllegalArgumentException("Password must contain a number");
+        } else if (password.matches("^[a-zA-Z0-9]+$")) {
+            throw new IllegalArgumentException("Password must contain a special character");
+        }
+    }
 }
 
