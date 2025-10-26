@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
 
 import ca.mcgill.ecse428.letterbook.model.User;
 import ca.mcgill.ecse428.letterbook.repository.UserRepository;
@@ -22,9 +23,6 @@ import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.cucumber.spring.ScenarioScope;
 
-@CucumberContextConfiguration
-@ScenarioScope
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class StepDefenitionsUser {
 
 	@Autowired
@@ -34,7 +32,8 @@ public class StepDefenitionsUser {
 	private UserRepository userRepository;
 
 	// PasswordEncoder bean may not be provided in the app config for tests — create one locally
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	// state captured by steps (per-scenario)
 	private String currentEmail;
@@ -184,12 +183,6 @@ public class StepDefenitionsUser {
 		this.loggedInEmail = e;
 		this.lastMessage = null;
 	}
-
-	@Then("the user is not logged into the application")
-	public void user_is_not_logged_into_application() {
-		assertFalse(this.loggedIn);
-	}
-
 	// --- helpers ---
 	private String stripQuotes(String s) {
 		if (s == null) return null;
