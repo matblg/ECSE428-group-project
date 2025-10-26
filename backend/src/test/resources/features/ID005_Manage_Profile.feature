@@ -12,8 +12,8 @@ Feature: Manage Profile
     And the user is logged into the account with email "user@gmail.com"
 
   Scenario Outline: Manage Profile (Normal Flow)
-    When requesting the modification of field <Field> to value <UpdatedValue>
-    Then the field <Field> now has value <UpdatedValue>
+    When requesting the modification of field <Field> to value "<UpdatedValue>"
+    Then the field <Field> now has value "<UpdatedValue>"
 
     Examples:
       | Field    | UpdatedValue             |
@@ -23,9 +23,9 @@ Feature: Manage Profile
       | password | Password321#             |
 
   Scenario Outline: Give misformatted input to a field (Error flow)
-    When requesting the modification of field <Field> to value <InvalidInput>
-    Then message <Message> is issued
-    And field <Field> has value <OriginalValue>
+    When requesting the modification of field <Field> to value '<InvalidInput>'
+    Then message '<Message>' is issued
+    And field <Field> has value "<OriginalValue>"
 
     Examples:
       | Field    | OriginalValue  | InvalidInput  | Message                                      |
@@ -33,16 +33,16 @@ Feature: Manage Profile
       | username | user           | ""            | Username cannot be empty                     |
       | email    | user@gmail.com | user@gmail    | Invalid email format                         |
       | email    | user@gmail.com | ""            | Email cannot be empty                        |
-      | password | Password123!   | passwor       | Password must contain at least 8 charcaters  |
+      | password | Password123!   | passwor       | Password must contain at least 8 characters  |
       | password | Password123!   | password      | Password must contain an uppercase character |
       | password | Password123!   | PASSWORD      | Password must contain a lowercase character  |
       | password | Password123!   | Password      | Password must contain a number               |
-      | password | Password123!   | password123   | Password must contain a special character    |
+      | password | Password123!   | Password123   | Password must contain a special character    |
 
   Scenario Outline: Give invalid input to a field (Error flow)
-    When requesting the modification of field <Field> to value <InvalidInput>
-    Then message <Message> is issued
-    And field <Field> has value <OriginalValue>
+    When requesting the modification of field <Field> to value "<InvalidInput>"
+    Then message '<Message>' is issued
+    And field <Field> has value "<OriginalValue>"
 
     Examples:
       | Field    | OriginalValue  | InvalidInput    | Message                                   |

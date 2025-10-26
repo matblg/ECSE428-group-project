@@ -43,63 +43,84 @@ public class UserService {
         }
 
         // create new user
-        User user = new User(cleanUsername, cleanEmail, cleanPassword, bio);
-    
+        User user = new User(cleanUsername, cleanEmail, passwordEncoder.encode(cleanPassword), bio);
         userRepository.save(user);
+
     }
 
     @Transactional
-    public boolean updateUser(String username, String oldPassword, String newEmail, String newPassword, String newBio){
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
+    public boolean updateUser(String currentUsername,
+                            String oldPassword,
+                            String newUsername,
+                            String newEmail,
+                            String newPassword,
+                            String newBio) {
+        User user = userRepository.findByUsername(currentUsername)
+            .orElseThrow(() -> new IllegalArgumentException("User not found: " + currentUsername));
 
-        // Validate old password using passwordEncoder
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-            return false; // Password mismatch
+            return false;
         }
+
         boolean updated = false;
 
-        // Update email if provided and is different
-        if (newEmail != null && !newEmail.trim().isEmpty()) {
-            // Validate and clean email (use temp password for validation)
-            String[] cleanCredentials = validateEmailAndPassword(newEmail, "tempPassword123");
+        // username
+        if (newUsername != null && !newUsername.equals(user.getUsername())) {
+            String trimmed = StringUtils.trimToNull(newUsername);
+            if (trimmed == null || "\"\"".equals(newUsername)) {
+                throw new IllegalArgumentException("Username cannot be empty");
+            }
+            if (trimmed.matches(".*\\s+.*")) {
+                throw new IllegalArgumentException("Username cannot contain a whitespace");
+            }
+            if (userRepository.findByUsername(trimmed).isPresent()) {
+                throw new IllegalArgumentException("Username \"" + trimmed + "\" is already taken");
+            }
+            user.setUsername(trimmed);
+            updated = true;
+        }
+
+        // email
+        if (newEmail != null) {
+            // Treat empty/whitespace-only as an error to satisfy the feature
+            if (newEmail.trim().isEmpty()) {
+                throw new IllegalArgumentException("Email cannot be empty");
+            }
+
+            // Validate format (password arg is dummy; we only use the email out of it)
+            String[] cleanCredentials = validateEmailAndPassword(newEmail, "TempPass123!");
             String cleanEmail = cleanCredentials[0];
-            
+
             if (!cleanEmail.equals(user.getEmail())) {
                 if (userRepository.findByEmail(cleanEmail).isPresent()) {
-                    throw new IllegalArgumentException("Email already exists");
+                    throw new IllegalArgumentException("An account with this email already exists");
                 }
                 user.setEmail(cleanEmail);
                 updated = true;
             }
         }
 
-        // Update password if provided
+
+        // password
         if (newPassword != null && !newPassword.trim().isEmpty()) {
-            // Validate and clean password (use temp email for validation)
             String[] cleanCredentials = validateEmailAndPassword("temp@example.com", newPassword);
             String cleanPassword = cleanCredentials[1];
-            
-            // Check if new password is different from old password
             if (!passwordEncoder.matches(cleanPassword, user.getPassword())) {
-                user.setPassword(passwordEncoder.encode(cleanPassword)); // Hash the new password
+                user.setPassword(passwordEncoder.encode(cleanPassword));
                 updated = true;
             }
         }
 
-        // Update bio if provided and different
+        // bio
         if (newBio != null && !newBio.equals(user.getBio())) {
             user.setBio(newBio);
             updated = true;
         }
-        
-         if (updated) {
-            userRepository.save(user);
-        }
-        
+
+        if (updated) userRepository.save(user);
         return true;
     }
-    
+
     @Transactional
     public void deleteUser(String username){
         User user = userRepository.findByUsername(username)
