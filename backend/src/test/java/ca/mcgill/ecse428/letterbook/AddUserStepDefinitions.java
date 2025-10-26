@@ -2,27 +2,16 @@ package ca.mcgill.ecse428.letterbook;
 
 import io.cucumber.java.Before;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 
 import ca.mcgill.ecse428.letterbook.model.User;
 import ca.mcgill.ecse428.letterbook.repository.UserRepository;
 import ca.mcgill.ecse428.letterbook.service.UserService;
-import io.cucumber.java.Before;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.spring.CucumberContextConfiguration;
-import io.cucumber.spring.ScenarioScope;
 
 public class AddUserStepDefinitions {
     @Autowired
@@ -30,9 +19,6 @@ public class AddUserStepDefinitions {
 
 	@Autowired
 	private UserRepository userRepository;
-
-	// PasswordEncoder bean may not be provided in the app config for tests — create one locally
-	private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     // state captured by steps (per-scenario)
 	private String currentEmail;

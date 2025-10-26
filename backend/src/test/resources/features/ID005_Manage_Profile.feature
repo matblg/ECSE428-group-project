@@ -4,7 +4,7 @@ Feature: Manage Profile
   So that my profile gets updated with the new information
 
   Background:
-    Given the following users exist in the System:
+    Given the accounts exist in the system
       | username | email           | bio                   | password     |
       | user     | user@gmail.com  | I love fantasy novels | Password123! |
       | user1    | user1@gmail.com | Bio for user1         | Password456! |
