@@ -1,4 +1,3 @@
-@develop
 Feature: View Profile (Reading History & Collections)
   As a user
   I would like to view my profile dashboard 
@@ -43,8 +42,8 @@ Feature: View Profile (Reading History & Collections)
       | The Wandering Isles | STARTED   |
       | Algorithms Unlocked | COMPLETED |
       | The Iron Empire     | STARTED   |
-    When the user applies Reading History filter "Status" = <FilterStatus>
-    Then the Reading History list shows the following <ExpectedCount> titles: <ExpectedTitles>
+    When the user applies Reading History filter "Status" = "<FilterStatus>"
+    Then the Reading History list shows the following <ExpectedCount> titles: "<ExpectedTitles>"
 
     Examples:
       | FilterStatus | ExpectedTitles                       | ExpectedCount |
