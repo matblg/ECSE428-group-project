@@ -19,7 +19,10 @@ public class BookController {
     private SearchService searchService;
 
     @GetMapping("/search")
-    public BookSearchResultDTO searchBooks(@RequestParam("query") String query) {
-        return searchService.searchBooks(query);
+    public BookSearchResultDTO searchBooks(
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "author", required = false) String author,
+            @RequestParam(value = "isbn", required = false) String isbn) {
+        return searchService.searchBooks(title, author, isbn);
     }
 }
