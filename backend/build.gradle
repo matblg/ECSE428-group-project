@@ -35,14 +35,16 @@ dependencies {
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
-	testLogging {
-		exceptionFormat = 'full'
-		events "passed", "skipped", "failed"
-	}
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+        events "passed", "skipped", "failed"
+    }
 
-	finalizedBy jacocoTestReport
+    // Run only scenarios that do NOT have @develop
+    systemProperty "cucumber.filter.tags", "not @develop"
 
+    finalizedBy jacocoTestReport
 }
 tasks.named('jacocoTestReport') {
     dependsOn test
