@@ -1,7 +1,8 @@
 name: Build
 
 on:
-  push: branches:[matblg/pipeline-fix-db]
+  branches:
+    - matblg/pipeline-fix-db
   pull_request:
     branches: [main]
   workflow_dispatch:
