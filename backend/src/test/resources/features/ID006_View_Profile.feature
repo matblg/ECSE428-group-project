@@ -1,3 +1,4 @@
+@develop
 Feature: View Profile (Reading History & Collections)
   As a user
   I would like to view my profile dashboard 
@@ -59,7 +60,7 @@ Feature: View Profile (Reading History & Collections)
     Given the user has no Collections
     When the user opens their Profile page
     Then the section "Collections" shows the message "No saved books yet"
-   
+
   Scenario: Prevent non-owners from viewing Reading History and Collections (Security Check)
     Given the account "other" has Reading History and Collections data
     When user attempts to access the profile of "other"
