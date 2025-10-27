@@ -1,9 +1,11 @@
 package ca.mcgill.ecse428.letterbook.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
@@ -21,7 +23,7 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     @Transactional
-    public void createUser(String username, String email, String password, String bio){
+    public void createUser(String username, String email, String password, String bio) {
         // validate username
         String cleanUsername = StringUtils.trimToNull(username);
         if (cleanUsername == null) {
@@ -37,7 +39,7 @@ public class UserService {
         if (userRepository.findByUsername(cleanUsername).isPresent()) {
             throw new IllegalArgumentException("Username already exists");
         }
-        
+
         if (userRepository.findByEmail(cleanEmail).isPresent()) {
             throw new IllegalArgumentException("Email is already associated with an account");
         }
@@ -50,13 +52,13 @@ public class UserService {
 
     @Transactional
     public boolean updateUser(String currentUsername,
-                            String oldPassword,
-                            String newUsername,
-                            String newEmail,
-                            String newPassword,
-                            String newBio) {
+            String oldPassword,
+            String newUsername,
+            String newEmail,
+            String newPassword,
+            String newBio) {
         User user = userRepository.findByUsername(currentUsername)
-            .orElseThrow(() -> new IllegalArgumentException("User not found: " + currentUsername));
+                .orElseThrow(() -> new IllegalArgumentException("User not found: " + currentUsername));
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
             return false;
@@ -100,7 +102,6 @@ public class UserService {
             }
         }
 
-
         // password
         if (newPassword != null && !newPassword.trim().isEmpty()) {
             String[] cleanCredentials = validateEmailAndPassword("temp@example.com", newPassword);
@@ -117,39 +118,40 @@ public class UserService {
             updated = true;
         }
 
-        if (updated) userRepository.save(user);
+        if (updated)
+            userRepository.save(user);
         return true;
     }
 
     @Transactional
-    public void deleteUser(String username){
+    public void deleteUser(String username) {
         User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
+                .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
         userRepository.delete(user);
     }
 
     @Transactional
-    public User getUserByUsername(String username){
-         return userRepository.findByUsername(username)
-            .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
-        
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
+
     }
 
     @Transactional
-    public User getUserByEmail(String email){
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email)
-            .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + email)); 
+                .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + email));
     }
 
     @Transactional
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-
     /**
      * Validates email and password format and returns cleaned values
-     * @param email - email to validate
+     * 
+     * @param email    - email to validate
      * @param password - password to validate
      * @return String array with [cleanEmail, cleanPassword]
      * @throws IllegalArgumentException if email or password is invalid
@@ -172,7 +174,7 @@ public class UserService {
         if (!p.matcher(cleanEmail).matches()) {
             throw new IllegalArgumentException("Invalid email format");
         }
-        return new String[]{cleanEmail, cleanPassword};
+        return new String[] { cleanEmail, cleanPassword };
     }
 
     private void validatePassword(String password) {
@@ -188,5 +190,19 @@ public class UserService {
             throw new IllegalArgumentException("Password must contain a special character");
         }
     }
-}
 
+    // login
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("No user found with email: " + email));
+
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .roles("USER")
+                .build();
+    }
+
+}
