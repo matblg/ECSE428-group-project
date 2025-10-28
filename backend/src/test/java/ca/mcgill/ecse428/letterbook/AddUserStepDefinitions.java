@@ -4,10 +4,13 @@ import io.cucumber.java.Before;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import ca.mcgill.ecse428.letterbook.model.User;
 import ca.mcgill.ecse428.letterbook.repository.UserRepository;
+import ca.mcgill.ecse428.letterbook.service.AuthService;
 import ca.mcgill.ecse428.letterbook.service.UserService;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,18 +24,21 @@ import io.cucumber.java.en.When;
 
 public class AddUserStepDefinitions {
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     // state captured by steps (per-scenario)
-	private String currentEmail;
-	private String currentPassword;
-	private String lastMessage;
-	private boolean loggedIn;
-	private String loggedInEmail;
-    @Autowired private UserService userService;
-    @Autowired private TestContext ctx;
-
+    private String currentEmail;
+    private String currentPassword;
+    private String lastMessage;
+    private boolean loggedIn;
+    private String loggedInEmail;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private TestContext ctx;
+    @Autowired
+    private AuthService authService;
 
     @Before
     public void beforeScenario() {
@@ -56,10 +62,14 @@ public class AddUserStepDefinitions {
     public void user_submits_registration_form() {
         try {
             userService.createUser("hello", currentEmail, currentPassword, "");
+            Map<String, String> loginResult = authService.login(currentEmail, currentPassword);
+
             ctx.loggedIn = true;
             ctx.loggedInEmail = currentEmail;
             userRepository.findByEmail(currentEmail)
-                          .ifPresent(u -> ctx.loggedInUsername = u.getUsername());
+                    .ifPresent(u -> ctx.loggedInUsername = u.getUsername());
+            ctx.jwtToken = loginResult.get("token");
+
         } catch (IllegalArgumentException e) {
             ctx.lastMessage = e.getMessage();
         }

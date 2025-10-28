@@ -9,7 +9,6 @@ Feature: Manage Profile
       | user     | user@gmail.com  | I love fantasy novels | Password123! |
       | user1    | user1@gmail.com | Bio for user1         | Password456! |
       | user2    | user2@gmail.com | Bio for user2         | Password789! |
-    And the user is logged into the account with email "user@gmail.com"
 
   Scenario Outline: Manage Profile (Normal Flow)
     When requesting the modification of field <Field> to value "<UpdatedValue>"
