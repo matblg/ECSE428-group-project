@@ -1,4 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://localhost:27017/letterbook
+      uri: ${MONGODB_URI:mongodb://localhost:27017/letterbook}
+
+jwt:
+  secret: ${JWT_SECRET:YQcsYWNIGv8ifDtMJDNQ54cCxjb3XeqehzcOI7LxEbM=}
