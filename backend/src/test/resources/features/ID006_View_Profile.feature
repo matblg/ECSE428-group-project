@@ -9,7 +9,6 @@ Feature: View Profile (Reading History & Collections)
       | user     | user@gmail.com  | I love reading!   | Password123! |
       | other    | other@gmail.com | Reading unites us | Password456! |
     And the application is connected to the Books API
-    And the user is logged into the account with email "user@gmail.com"
 
   Scenario Outline: View profile shows Reading History and Collections (Normal Flow)
     Given the following reading history exists for "user":
