@@ -5,8 +5,8 @@ Feature: Login User
 
   Background:
     Given the following users exist in the System:
-      | Email          | Password     |
-      | user@gmail.com | Password123! |
+      | username | email          | bio                   | password     |
+      | user     | user@gmail.com | I love fantasy novels | Password123! |
     And the user is not logged into the application
 
   Scenario: Login User With Username (Normal Flow)
