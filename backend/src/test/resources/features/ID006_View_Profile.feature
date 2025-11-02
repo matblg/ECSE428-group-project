@@ -1,4 +1,4 @@
-Feature: View Profile (Reading History & Collections)
+Feature: ID006 View Profile (Reading History & Collections)
   As a user
   I would like to view my profile dashboard 
   So that I can track my reading activity and browse my collections

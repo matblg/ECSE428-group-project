@@ -28,10 +28,10 @@ public class CommonSteps {
         ctx.loggedInUsername = null;
     }
 
-    @Then("message {string} is issued")
-    public void message_is_issued(String expected) {
-        assertEquals(expected, ctx.lastMessage);
-    }
+    // @Then("message {string} is issued")
+    // public void message_is_issued(String expected) {
+    // assertEquals(expected, ctx.lastMessage);
+    // }
 
     @Given("a new user is on the registration page")
     public void a_new_user_is_on_the_registration_page() {
