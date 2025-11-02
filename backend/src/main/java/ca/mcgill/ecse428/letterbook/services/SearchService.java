@@ -16,7 +16,7 @@ public class SearchService {
     private final String apiKey;
 
     public SearchService(RestClient.Builder restBuilder,
-                         @Value("AIzaSyAglwjOVIQ9N3gELfgTCkK7PZGXSdxzB8U") String apiKey) {
+                         @Value("API_HERE") String apiKey) {
         this.restClient = restBuilder.baseUrl("https://www.googleapis.com/books/v1").build();
         this.apiKey = apiKey;
     }
