@@ -1,3 +1,4 @@
+@develop
 Feature: Log Book as Read
   As a user 
   I want to log a book as read and give it a star rating
@@ -5,12 +6,12 @@ Feature: Log Book as Read
 
   Background:
     Given the following books exist in the catalogue:
-      | Title              | Author          |
-      | Dune               | Frank Herbert   |
-      | The Way of Kings   | Brandon Sanderson |
+      | Title            | Author            |
+      | Dune             | Frank Herbert     |
+      | The Way of Kings | Brandon Sanderson |
     And the following users exist in the System:
-      | username | email           | bio                   | password     |
-      | user     | user@gmail.com  | I love fantasy novels | Password123! |
+      | username | email          | bio                   | password     |
+      | user     | user@gmail.com | I love fantasy novels | Password123! |
     And the user "user" is logged into the application
 
   Scenario: Log a finished book with star rating (Normal Flow)
@@ -31,9 +32,9 @@ Feature: Log Book as Read
 
     Examples:
       | Rating | Message                        |
-      | -1     | Rating must be between 1 and 5 |
-      | 0      | Rating must be between 1 and 5 |
-      | 6      | Rating must be between 1 and 5 |
+      |     -1 | Rating must be between 1 and 5 |
+      |      0 | Rating must be between 1 and 5 |
+      |      6 | Rating must be between 1 and 5 |
       | abc    | Rating must be a number        |
 
   Scenario: Log a book as read that does not exist (Error Flow)
