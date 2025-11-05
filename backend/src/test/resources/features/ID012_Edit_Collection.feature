@@ -1,6 +1,6 @@
 Feature: ID012 Edit Collections
   As a user
-  I want to edit (rename, delete) my collections
+  I want to edit (rename or delete) an existing collection
   So that my saved books stay tidy and up to date
 
   Background:
@@ -27,7 +27,7 @@ Feature: ID012 Edit Collections
     When the user deletes the collection "Classics"
     Then the collection "Classics" doesn't exist for the user "user"
 
-  Scenario: Rename a collection to a name that already exists (Error Flow)
+  Scenario: Attempt to rename a collection to a name that already exists (Error Flow)
     Given the user "user" is logged into the application
     And the following collections exist for user "user":
       | CollectionName | Title |
@@ -36,6 +36,18 @@ Feature: ID012 Edit Collections
     When the user renames the collection "My Books" to "Favorites"
     Then message "A collection with this name already exists" is issued
     And the collection "My Books" still exists for the user "user"
+
+  Scenario: Attempt to rename a collection to an empty name (Error Flow)
+    Given the user "user" is logged into the application
+    And the collection "Classics" exists for the user "user"
+    When the user renames the collection "Classics" to <Name>
+    Then message "Collection name cannot be empty" is issued
+    And the collection "Classics" still exists for the user "user"
+
+    Examples:
+      | Name |
+      | ""   |
+      | " "  |
 
   Scenario: Unauthenticated user attempts to edit a collection (Error Flow)
     Given the user is not logged into the application

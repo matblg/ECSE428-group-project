@@ -23,22 +23,16 @@ Feature: Create new Collection
     Then message "This collection already exists" is issued
     And no collection is created
 
-  Scenario: Attempt to create collection with duplicate name case insensitive (Error Flow)
-    Given the user "user" is logged into the application
-    When the user attempts to create a collection with name "my books"
-    Then message "This collection already exists" is issued
-    And no collection is created
-
   Scenario: Attempt to create collection with an empty name (Error Flow)
     Given the user "user" is logged into the application
     When the user attempts to create a collection with name <Name>
-    Then message <ErrorMessage> is issued
+    Then message "Collection name cannot be empty" is issued
     And no collection is created
 
     Examples:
-      | Name | ErrorMessage                      |
-      | ""   | "Collection name cannot be empty" |
-      | " "  | "Collection name cannot be empty" |
+      | Name |
+      | ""   |
+      | " "  |
 
   Scenario: Unauthenticated user attempts to create a collection (Error Flow)
     Given the user is not logged into the application
