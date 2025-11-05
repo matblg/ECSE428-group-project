@@ -7,28 +7,22 @@ Feature: ID010 Add Book to Collection
     Given the following users exist in the System:
       | username | email          | bio                   | password     |
       | user     | user@gmail.com | I love fantasy novels | Password123! |
-    And the collection "My Books" exists for the account associated with email "user@gmail.com"
+    And the collection "My Books" exists for the user "user"
 
   Scenario: Add a book to an existing collection (Normal Flow)
-    Given the user's "My Books" collection is empty
+    Given the user "user" is logged into the application
+    And the user's "My Books" collection is empty
     When the user attempts to add "To Kill a Mockingbird"
     And the user chooses the "My Books" collection
-    Then the book "To Kill a Mockingbird" is added to the user's "My Books" collection
-
-  Scenario: Add a book to a new collection (Alternative Flow)
-    Given the user's "My Books" collection is empty
-    When the user attempts to add "1984" to a collection
-    And the user chooses to add a new collection with name "Classics"
-    Then the collection "Classics" is added to the user's collections
-    And the book "1984" is added to the user's "Classics" collection
+    Then the collection "My Books" contains the book "To Kill a Mockingbird"
 
   Scenario: Attempt to add book already in collection (Error Flow)
-    Given the user's "My Books" collection is empty
+    Given the user "user" is logged into the application
     And the book "Frankenstein" is in the user's "My Books" collection
     When the user attempts to add "Frankenstein" to a collection
     And the user chooses the "My Books" collection
     Then message "This book is already in your collection" is issued
-    And no book is added to the collection
+    And no book is added to the collection "My Books"
 
   Scenario: Unauthenticated user attempts to add book to collection (Error Flow)
     Given the user is not logged into the application

@@ -15,10 +15,10 @@ Feature: Log Book as Read
     And the user "user" is logged into the application
 
   Scenario: Log a finished book with star rating (Normal Flow)
-    Given the book "Dune" is in the Reading History with status "STARTED"
+    Given the book "Dune" is in the user's Reading History with status "STARTED"
     When the user marks "Dune" as completed with rating "5"
     Then the book "Dune" has status "COMPLETED" and rating "5"
-    And "Dune" appears in the user's Reading History under COMPLETED books
+    And the book "Dune" is in the user's Reading History under COMPLETED books
 
   Scenario: Change star rating of a completed book (Alternative Flow)
     Given "The Way of Kings" is in the Reading History with status "COMPLETED" and rating "4"
