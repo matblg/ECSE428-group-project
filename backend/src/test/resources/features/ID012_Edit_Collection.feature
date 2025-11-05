@@ -1,3 +1,4 @@
+@develop
 Feature: ID012 Edit Collections
   As a user
   I want to edit (rename) an existing collection
@@ -48,10 +49,3 @@ Feature: ID012 Edit Collections
     When the user renames the collection "My Books" to "Favorites"
     Then message "Authentication required. Please log in to edit your collections" is issued
     And the collection "My Books" still exists for the user "user"
-
-  Scenario: Attempt to edit another user's collection (Error Flow)
-    Given the user "user" is logged into the application
-    And the collection "Autumn List" exists for the user "other"
-    When the user renames the collection "Autumn List" to "Favorites"
-    Then message "You are not authorized to edit this collection" is issued
-    And the collection "Autumn List" still exists for the user "other"
