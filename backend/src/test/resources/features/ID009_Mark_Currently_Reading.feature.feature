@@ -15,12 +15,12 @@ Feature: Mark Book as Currently Reading
     And the user "user" is logged into the application
 
   Scenario: Mark a book as currently reading (Normal Flow)
-    Given the user "user" has no books in their Reading History
+    Given the user has no books in their Reading History
     When the user marks "The Way of Kings" as currently reading
     Then the book "The Way of Kings" appears in the Reading History with status "STARTED"
 
   Scenario: Mark another book while already reading one (Alternative Flow)
-    Given the user has "Dune" marked as currently reading
+    Given the user has "Dune" in Reading History with status "STARTED"
     When the user marks "The Way of Kings" as currently reading
     Then "Dune" remains in Reading History with status "STARTED"
     And "The Way of Kings" is added with status "STARTED"
@@ -31,7 +31,7 @@ Feature: Mark Book as Currently Reading
     Then message "This book has already been completed" is issued
 
   Scenario: Attempt to mark a book already marked as currently reading (Error Flow)
-    Given the user has "The Way of Kings" marked as currently reading
+    Given the user has "The Way of Kings" in Reading History with status "STARTED"
     When the user marks "The Way of Kings" as currently reading
     Then message "This book is already marked as currently reading" is issued
 
