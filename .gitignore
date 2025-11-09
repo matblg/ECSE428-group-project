@@ -36,3 +36,8 @@ build/
 
 # VSCode
 .vscode/
+backend/build
+backend/bin/*
+backend/bin/test/features/ID001_Add_a_User.feature
+backend/bin/test/features/ID001_Add_a_User.feature
+backend/bin/test/features/ID001_Add_a_User.feature
