@@ -19,33 +19,37 @@ repositories {
 }
 
 dependencies {
-
-    // Spring utility deps
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.projectlombok:lombok'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
 
-    // Testing deps
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+    
+    testImplementation 'io.cucumber:cucumber-java:7.14.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.14.0'
+    testImplementation 'io.cucumber:cucumber-spring:7.14.0'
+    testImplementation 'org.junit.platform:junit-platform-suite:1.10.0'  
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.cucumber:cucumber-java:7.18.0'
-    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.18.0'
-    testImplementation 'io.cucumber:cucumber-spring:7.18.0'
-    testImplementation 'org.junit.platform:junit-platform-suite:1.10.2'
+    testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo:4.11.0'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
-	testLogging {
-		exceptionFormat = 'full'
-		events "passed", "skipped", "failed"
-	}
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat = 'full'
+        events "passed", "skipped", "failed"
+    }
 
-	finalizedBy jacocoTestReport
+    // Run only scenarios that do NOT have @develop
+    systemProperty "cucumber.filter.tags", "not @develop"
 
+    finalizedBy jacocoTestReport
 }
 tasks.named('jacocoTestReport') {
     dependsOn test

@@ -1,4 +1,4 @@
-Feature: ID002 Login User
+Feature: Login User
   As a user
   I want to log into my account
   So that I can securely access my personal Letterbook features and data

@@ -1,4 +1,4 @@
-Feature: ID005 Manage Profile
+Feature: Manage Profile
   As a user
   I would like to edit my profile information (username, email, bio, password)
   So that my profile gets updated with the new information
