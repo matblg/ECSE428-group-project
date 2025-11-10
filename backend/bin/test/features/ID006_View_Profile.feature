@@ -9,6 +9,7 @@ Feature: View Profile (Reading History & Collections)
       | user     | user@gmail.com  | I love reading!   | Password123! |
       | other    | other@gmail.com | Reading unites us | Password456! |
     And the application is connected to the Books API
+    And the user is logged into the account with email "user@gmail.com"
 
   Scenario Outline: View profile shows Reading History and Collections (Normal Flow)
     Given the following reading history exists for "user":
@@ -41,8 +42,8 @@ Feature: View Profile (Reading History & Collections)
       | The Wandering Isles | STARTED   |
       | Algorithms Unlocked | COMPLETED |
       | The Iron Empire     | STARTED   |
-    When the user applies Reading History filter "Status" = "<FilterStatus>"
-    Then the Reading History list shows the following <ExpectedCount> titles: "<ExpectedTitles>"
+    When the user applies Reading History filter "Status" = <FilterStatus>
+    Then the Reading History list shows the following <ExpectedCount> titles: <ExpectedTitles>
 
     Examples:
       | FilterStatus | ExpectedTitles                       | ExpectedCount |
@@ -58,7 +59,7 @@ Feature: View Profile (Reading History & Collections)
     Given the user has no Collections
     When the user opens their Profile page
     Then the section "Collections" shows the message "No saved books yet"
-
+   
   Scenario: Prevent non-owners from viewing Reading History and Collections (Security Check)
     Given the account "other" has Reading History and Collections data
     When user attempts to access the profile of "other"

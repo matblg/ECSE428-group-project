@@ -1,5 +1,6 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css'
+import BookSearch from './components/BookSearch';
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
 
             <Route path="/profile" element={<div><p>Profile</p></div>} />
             <Route path="/collection/:id" element={<div><p>Collection</p></div>} />
-            <Route path="/search-books" element={<div><p>Search books</p></div>} />
+            <Route path="/search-books" element={<BookSearch />} />
 
             {/*<Route path="*" element={<Navigate to="/" />} />*/}
 
