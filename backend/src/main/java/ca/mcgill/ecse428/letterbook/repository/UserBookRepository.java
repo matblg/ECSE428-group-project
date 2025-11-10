@@ -17,4 +17,6 @@ public interface UserBookRepository extends CrudRepository<UserBook, String> {
 
     List<UserBook> findByOwnerId(String ownerId);
 
+    boolean existsByOwnerIdAndIsbn(String ownerId, String isbn);
+
 }

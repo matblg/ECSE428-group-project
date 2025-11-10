@@ -1,4 +1,4 @@
-package ca.mcgill.ecse428.letterbook.services;
+package ca.mcgill.ecse428.letterbook.service;
 
 import java.util.List;
 

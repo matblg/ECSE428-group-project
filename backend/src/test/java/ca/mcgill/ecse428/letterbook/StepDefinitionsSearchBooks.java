@@ -2,7 +2,7 @@ package ca.mcgill.ecse428.letterbook;
 
 import io.cucumber.java.en.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import ca.mcgill.ecse428.letterbook.services.SearchService;
+import ca.mcgill.ecse428.letterbook.service.SearchService;
 import ca.mcgill.ecse428.letterbook.dto.BookSearchResultDTO;
 
 import static org.junit.jupiter.api.Assertions.*;

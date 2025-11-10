@@ -29,4 +29,6 @@ public class User {
 
     private List<String> currentlyReading;
 
+    private List<String> allBooks;
+
 }

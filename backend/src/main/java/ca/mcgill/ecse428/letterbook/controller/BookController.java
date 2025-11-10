@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse428.letterbook.dto.BookSearchResultDTO;
-import ca.mcgill.ecse428.letterbook.services.SearchService;
+import ca.mcgill.ecse428.letterbook.service.SearchService;
 
 @RestController
 @RequestMapping("/api/books")
