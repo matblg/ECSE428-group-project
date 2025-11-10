@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.util.List;
 import java.util.UUID;
+
 
 @Builder
 @Getter
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Collection {
 
     @Id
-    private UUID id;
+    private String id;
 
     private String name;
 
@@ -27,6 +27,6 @@ public class Collection {
     private List<String> booksISBNs;
 
     // MAP TO User
-    private UUID ownerId;
+    private String ownerId;
 
 }

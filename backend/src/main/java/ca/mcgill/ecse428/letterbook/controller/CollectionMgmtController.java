@@ -20,24 +20,24 @@ public class CollectionMgmtController {
     }
 
     @PostMapping("collections/")
-    private ResponseEntity<String> createCollection(String name, UUID ownerId) {
+    private ResponseEntity<String> createCollection(String name, String ownerId) {
         String result = colMgmtService.createCollection(name, ownerId);
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("collections/")
-    private ResponseEntity<List<Collection>> getCollectionsForUser(UUID ownerId) {
+    private ResponseEntity<List<Collection>> getCollectionsForUser(String ownerId) {
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping
-    private ResponseEntity<String> addBookToCollection(UUID collectionId, String isbn) {
+    private ResponseEntity<String> addBookToCollection(String collectionId, String isbn) {
         String result = colMgmtService.addBookToCollection(collectionId, isbn);
         return ResponseEntity.ok(result);
     }
 
     @DeleteMapping
-    private ResponseEntity<String> removeBookFromCollection(UUID collectionId, String isbn) {
+    private ResponseEntity<String> removeBookFromCollection(String collectionId, String isbn) {
         String result = colMgmtService.removeBookFromCollection(collectionId, isbn);
         return ResponseEntity.ok(result);
     }

@@ -9,7 +9,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 
 @Service
 public class CollectionMgmtService {
@@ -26,7 +25,7 @@ public class CollectionMgmtService {
     }
 
     @Transactional
-    public String createCollection(String name, UUID ownerId) throws BadRequestException {
+    public String createCollection(String name, String ownerId) throws BadRequestException {
         if (colRepo.existsByNameAndOwnerId(name, ownerId)) {
             throw new BadRequestException(
                     "Collection with name " + name + " already exists for user " + ownerId
@@ -43,12 +42,12 @@ public class CollectionMgmtService {
         return collection.getId().toString();
     }
 
-    public Collection getCollectionById(UUID id) throws NotFoundException {
+    public Collection getCollectionById(String id) throws NotFoundException {
         return colRepo.findById(id).orElseThrow(() -> new NotFoundException("Collection not found: " + id));
     }
 
     @Transactional
-    public String addBookToCollection(UUID collectionId, String isbn) throws BadRequestException {
+    public String addBookToCollection(String collectionId, String isbn) throws BadRequestException {
         Collection collection = colRepo.findById(collectionId).orElseThrow(
                 () -> new BadRequestException("Collection not found: " + collectionId)
         );
@@ -61,7 +60,7 @@ public class CollectionMgmtService {
     }
 
     @Transactional
-    public String removeBookFromCollection(UUID collectionId, String isbn) throws BadRequestException {
+    public String removeBookFromCollection(String collectionId, String isbn) throws BadRequestException {
         Collection collection = colRepo.findById(collectionId).orElseThrow(
                 () -> new BadRequestException("Collection not found: " + collectionId)
         );

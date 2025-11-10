@@ -14,6 +14,7 @@ import ca.mcgill.ecse428.letterbook.repository.UserRepository;
 import java.util.List;
 import java.util.regex.Pattern;
 
+
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
@@ -45,7 +46,12 @@ public class UserService implements UserDetailsService {
         }
 
         // create new user
-        User user = new User(cleanUsername, cleanEmail, passwordEncoder.encode(cleanPassword), bio);
+        User user = User.builder()
+                .username(cleanUsername)
+                .email(cleanEmail)
+                .password(passwordEncoder.encode(cleanPassword))
+                .build();
+
         userRepository.save(user);
 
     }
